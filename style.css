@@ -1,0 +1,392 @@
+/* =========================================================
+   STYLE.CSS — Versi Diperbaiki & Dibersihkan
+   ========================================================= */
+
+/* Reset dasar & layout aman */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+header {
+  background-color: #033366;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+/* =========================================================
+   CAROUSEL FOTO PEGAWAI
+   ========================================================= */
+#photo-slideshow {
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto;
+  text-align: center;
+}
+
+.carousel-wrapper {
+  overflow: hidden;
+}
+
+.carousel-container {
+  display: flex;
+  padding: 20px 0;
+  transition: transform 0.5s ease-in-out;
+  width: max-content; /* ✅ perbaikan dari width: 10000px */
+}
+
+.slide {
+  flex-shrink: 0;
+  width: 150px;
+  height: 180px;
+  margin: 0 15px;
+  transition: all 0.5s;
+  opacity: 0.5;
+  position: relative;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Efek tengah paling besar */
+.slide.active {
+  opacity: 1;
+  transform: scale(1.4);
+  z-index: 10;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Titik navigasi carousel */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.dot {
+  height: 6px;
+  width: 6px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.dot.active {
+  background-color: #007bff;
+  transform: scale(1.5);
+}
+
+/* =========================================================
+   TABEL DATA PEGAWAI
+   ========================================================= */
+main {
+  padding: 20px;
+}
+
+main h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+#employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+#employee-table th,
+#employee-table td {
+  border: 1px solid #ddd;
+  padding: 12px 8px;
+  text-align: left;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+#employee-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+}
+
+#employee-table th:hover {
+  background-color: #e0e0e0;
+}
+
+/* Indikator sorting */
+.sort-indicator {
+  font-size: 0.8em;
+  margin-left: 5px;
+  opacity: 0.7;
+}
+
+/* Freeze kolom kiri */
+.freeze-col {
+  position: sticky;
+  left: 0;
+  background-color: white;
+  z-index: 2;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: 30px;
+}
+
+/* =========================================================
+   DASHBOARD STATISTIK
+   ========================================================= */
+#charts {
+  width: 95%;
+  margin: 0 auto 30px auto;
+  text-align: center;
+}
+
+#charts h2 {
+  margin-bottom: 15px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 1000px;
+  align-items: stretch;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  padding: 15px 10px;
+  text-align: center;
+}
+
+.stat-card h3 {
+  font-size: 1rem;
+  color: #2b4f8c;
+  margin-bottom: 10px;
+}
+
+/* =========================================================
+   TOTAL PEGAWAI + JENIS KELAMIN VERTIKAL
+   ========================================================= */
+.total-group {
+  display: flex;
+  flex-direction: column; /* ✅ vertikal */
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 15px;
+}
+
+.total-left {
+  text-align: center;
+}
+
+.total-left h3 {
+  font-size: 1rem;
+  color: #2b4f8c;
+  margin-bottom: 5px;
+}
+
+.total-count {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #000;
+}
+
+.total-bottom {
+  text-align: center;
+}
+
+.total-bottom h3 {
+  font-size: 1rem;
+  color: #2b4f8c;
+  margin-bottom: 8px;
+}
+
+.total-bottom canvas {
+  max-width: 160px !important;
+  height: auto !important;
+  margin: 0 auto;
+}
+
+/* Jabatan */
+.jabatan-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 15px;
+}
+
+.jabatan-item span {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.jabatan-item strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-top: 3px;
+}
+
+/* Pendidikan */
+.pendidikan-data {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.pendidikan-data div {
+  text-align: center;
+}
+
+.pendidikan-data span {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.pendidikan-data strong {
+  display: block;
+  font-size: 1.1rem;
+}
+
+/* =========================================================
+   CHART
+   ========================================================= */
+/* Chart utama */
+#charts canvas {
+  width: 100% !important;
+  max-width: 700px;
+  height: auto !important;
+}
+
+/* Chart kecil di dalam card */
+.stat-card canvas {
+  max-width: 180px !important;
+  height: auto !important;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   MEDIA QUERY (Mobile & Tablet)
+   ========================================================= */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  header h1 {
+    font-size: 1.2rem;
+    padding: 10px;
+  }
+
+  main {
+    padding: 10px;
+  }
+
+  #employee-table {
+    width: 900px; /* agar bisa digeser horizontal */
+  }
+
+  .freeze-col {
+    position: static; /* nonaktifkan sticky */
+    box-shadow: none;
+  }
+
+  /* Carousel kecil */
+  #photo-slideshow {
+    width: 100%;
+    margin: 15px auto;
+  }
+
+  .carousel-container {
+    padding: 10px 0;
+  }
+
+  .slide {
+    width: 100px;
+    height: 120px;
+    margin: 0 8px;
+  }
+
+  .slide.active {
+    transform: scale(1.2);
+  }
+
+  .carousel-dots {
+    margin-top: 10px;
+  }
+
+  footer {
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+
+  .total-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .total-right canvas {
+    max-width: 100px !important;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .total-card .total-count {
+    font-size: 2rem;
+  }
+}
+/* =========================================================
+   PERAPIHAN LEGEND CHART.JS
+   ========================================================= */
+.chartjs-legend {
+  display: flex !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+
+.chartjs-legend li {
+  align-items: center !important;
+}

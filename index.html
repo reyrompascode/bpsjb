@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar Pegawai BPS Kota Jakarta Barat</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Daftar Pegawai BPS Kota Jakarta Barat</h1>
+    </header>
+
+    <section id="photo-slideshow">
+      <div class="carousel-wrapper">
+        <div class="carousel-container"></div>
+      </div>
+
+      <div class="carousel-dots"></div>
+    </section>
+
+    <main>
+      <section id="charts">
+        <h2>Statistik Pegawai</h2>
+
+        <div class="dashboard-grid">
+          <!-- TOTAL PEGAWAI + JENIS KELAMIN (DALAM SATU KONTENER) -->
+          <div class="stat-card total-group">
+            <div class="total-left">
+              <h3>Total Pegawai</h3>
+              <div class="total-count" id="totalPegawai">0</div>
+            </div>
+            <div class="total-bottom">
+              <h3>Jenis Kelamin</h3>
+              <canvas id="chartJenisKelamin"></canvas>
+            </div>
+          </div>
+
+          <!-- JABATAN FUNGSIONAL -->
+          <div class="stat-card">
+            <h3>Jabatan Fungsional</h3>
+            <div class="jabatan-grid" id="jabatanFungsional"></div>
+          </div>
+
+          <!-- PENDIDIKAN -->
+          <div class="stat-card">
+            <h3>Pendidikan</h3>
+            <div class="pendidikan-data" id="pendidikanData"></div>
+            <canvas id="chartPendidikan"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <h2>Data Pegawai</h2>
+
+      <div class="table-container">
+        <table id="employee-table">
+          <thead>
+            <tr>
+              <th class="freeze-col">Nama Pegawai</th>
+              <th>NIP Lama</th>
+              <th>NIP Baru</th>
+              <th>E-mail</th>
+              <th>Jenis Kelamin</th>
+              <th>Pendidikan</th>
+              <th>Pangkat / Golongan</th>
+              <th>Jabatan</th>
+            </tr>
+          </thead>
+          <tbody id="pegawai-list"></tbody>
+        </table>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Daftar Pegawai. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
