@@ -161,6 +161,35 @@ main h2 {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   background-color: white;
 }
+/* =========================================================
+   FREEZE KOLOM PERTAMA (HEADER & ISI)
+   ========================================================= */
+#employee-table th.freeze-col,
+#employee-table td.freeze-col {
+  position: sticky;
+  left: 0;
+  background-color: #fff;
+  z-index: 5;
+}
+
+/* Header freeze – sedikit lebih tinggi dan beda warna */
+#employee-table th.freeze-col {
+  background-color: #f2f2f2;
+  z-index: 6;
+  box-shadow: 3px 0 5px rgba(0, 0, 0, 0.15);
+}
+
+/* Isi freeze – lebih halus */
+#employee-table td.freeze-col {
+  background-color: #fff;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Wrapper tabel tetap bisa digulir */
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 
 #employee-table th,
 #employee-table td {
