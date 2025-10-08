@@ -331,22 +331,28 @@ function updateSortIndicators(sortedKey, direction) {
 }
 
 // ===========================================
-// KODE CAROUSEL DAN RESPONSIF (TETAP SAMA)
+// KODE CAROUSEL DAN RESPONSIF — VERSI PERBAIKAN (1 DOT = 1 FOTO)
 // ===========================================
 const carouselContainer = document.querySelector(".carousel-container");
 const dotsContainer = document.querySelector(".carousel-dots");
 const SLIDE_DELAY = 1500;
 
 let totalPhotos = 0;
-let autoSlideInterval;
+let autoSlideInterval = null;
 let startIndex = 0;
 
 function getCarouselConfig() {
   const isMobile = window.innerWidth <= 768;
+  const VISIBLE_COUNT = isMobile ? 3 : 5;
+  const centerIndexOffset = Math.floor(VISIBLE_COUNT / 2);
+
+  // ✳️ Sekarang: 1 dot per foto — sehingga setiap foto bisa jadi pusat
+  const totalDots = Math.max(1, totalPhotos);
+
   return {
-    VISIBLE_COUNT: isMobile ? 3 : 5,
-    centerIndexOffset: isMobile ? 1 : 2,
-    totalDots: totalPhotos - (isMobile ? 3 : 5) + 1,
+    VISIBLE_COUNT,
+    centerIndexOffset,
+    totalDots,
   };
 }
 
@@ -365,17 +371,11 @@ function createDots() {
   dotsContainer.innerHTML = "";
   const { totalDots } = getCarouselConfig();
 
-  const finalDots = totalDots > 0 ? totalDots : totalPhotos;
-
-  for (let i = 0; i < finalDots; i++) {
+  for (let i = 0; i < totalDots; i++) {
     const dot = document.createElement("span");
     dot.classList.add("dot");
     dot.setAttribute("data-index", i);
-
-    dot.addEventListener("click", () => {
-      updateCarousel(i);
-    });
-
+    dot.addEventListener("click", () => updateCarousel(i));
     dotsContainer.appendChild(dot);
   }
 }
@@ -386,22 +386,21 @@ function startAutoSlide() {
 
   autoSlideInterval = setInterval(() => {
     let nextIndex = startIndex + 1;
-
-    if (nextIndex >= totalDots) {
-      nextIndex = 0;
-    }
-
+    if (nextIndex >= totalDots) nextIndex = 0;
     updateCarousel(nextIndex);
   }, SLIDE_DELAY);
 }
 
 function initCarousel(count) {
   totalPhotos = count;
-
   const { VISIBLE_COUNT } = getCarouselConfig();
+
+  // Jika jumlah foto <= yang terlihat, cukup tampilkan tanpa mekanik centering
   if (totalPhotos <= VISIBLE_COUNT) {
     document.getElementById("photo-slideshow").style.overflow = "auto";
     createPhotoList(totalPhotos);
+    // opsional: sembunyikan dots jika ingin
+    dotsContainer.innerHTML = "";
     return;
   }
 
@@ -418,62 +417,48 @@ function updateCarousel(newStartIndex) {
 
   const slides = document.querySelectorAll(".slide");
   const dots = document.querySelectorAll(".dot");
-  const { totalDots, centerIndexOffset } = getCarouselConfig();
+  if (!slides.length) return;
 
   const isManualShift = newStartIndex !== startIndex;
 
-  if (newStartIndex < 0) {
-    newStartIndex = 0;
-  } else if (newStartIndex >= totalDots) {
-    newStartIndex = totalDots - 1;
-  }
-
+  // jaga index
+  if (newStartIndex < 0) newStartIndex = 0;
+  else if (newStartIndex >= totalPhotos) newStartIndex = totalPhotos - 1;
   startIndex = newStartIndex;
 
-  let targetSlideIndex;
-
-  if (startIndex < centerIndexOffset) {
-    targetSlideIndex = startIndex;
-  } else {
-    targetSlideIndex = startIndex + centerIndexOffset;
-  }
-
-  const slideshowWrapperWidth =
-    document.querySelector("#photo-slideshow").offsetWidth;
-  const slideWidth = slides[0] ? slides[0].offsetWidth : 150;
-  const slideMargin = 30;
+  // ukuran
+  const wrapper = document.querySelector("#photo-slideshow");
+  const wrapperWidth = wrapper.offsetWidth;
+  const slideWidth = slides[0].offsetWidth || 150;
+  const style = window.getComputedStyle(slides[0]);
+  const slideMargin =
+    (parseFloat(style.marginLeft) || 0) + (parseFloat(style.marginRight) || 0);
   const slideWidthWithMargin = slideWidth + slideMargin;
 
-  const totalOffsetToTargetStart = targetSlideIndex * slideWidthWithMargin;
-  const centerAdjustment = slideshowWrapperWidth / 2 - slideWidth / 2;
+  // pusatkan selalu foto aktif
+  const centerAdjustment = wrapperWidth / 2 - slideWidth / 2;
+  const finalShift = centerAdjustment - startIndex * slideWidthWithMargin;
 
-  const finalShift = -totalOffsetToTargetStart + centerAdjustment;
-
+  // terapkan tanpa batasan kiri/kanan
   carouselContainer.style.transform = `translateX(${finalShift}px)`;
 
-  slides.forEach((slide) => slide.classList.remove("active"));
+  // efek aktif
+  slides.forEach((s) => s.classList.remove("active"));
+  if (slides[startIndex]) slides[startIndex].classList.add("active");
 
-  if (slides[targetSlideIndex]) {
-    slides[targetSlideIndex].classList.add("active");
-  }
+  // titik navigasi
+  dots.forEach((d) => d.classList.remove("active"));
+  if (dots[startIndex]) dots[startIndex].classList.add("active");
 
-  dots.forEach((dot) => dot.classList.remove("active"));
-  if (dots[startIndex]) {
-    dots[startIndex].classList.add("active");
-  }
-
-  if (isManualShift) {
-    startAutoSlide();
-  }
+  if (isManualShift) startAutoSlide();
 }
 
+// resize: re-init tapi jangan spam
 let resizeTimeout;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimeout);
   resizeTimeout = setTimeout(() => {
-    if (totalPhotos > 0) {
-      initCarousel(totalPhotos);
-    }
+    if (totalPhotos > 0) initCarousel(totalPhotos);
   }, 200);
 });
 
