@@ -21,6 +21,7 @@ const CUSTOM_ORDER_JABATAN = [
   "Statistisi Pelaksana Lanjutan",
   "Statistisi Pelaksana",
   "Staf",
+  "Pegawai Kontrak",
 ];
 
 // MAPPING Kunci JSON ke Indeks Kolom Tabel
@@ -108,6 +109,7 @@ function renderDashboard(data) {
     "Statistisi Pelaksana Lanjutan",
     "Statistisi Pelaksana",
     "Staf",
+    "Pegawai Kontrak",
   ];
 
   const jabatanGrid = document.getElementById("jabatanFungsional");
@@ -344,15 +346,12 @@ let startIndex = 0;
 function getCarouselConfig() {
   const isMobile = window.innerWidth <= 768;
   const VISIBLE_COUNT = isMobile ? 3 : 5;
-  const centerIndexOffset = Math.floor(VISIBLE_COUNT / 2);
 
-  // ✳️ Sekarang: 1 dot per foto — sehingga setiap foto bisa jadi pusat
-  const totalDots = Math.max(1, totalPhotos);
-
+  // 🔧 Sekarang: 1 dot = 1 foto (jumlah dot = jumlah foto)
   return {
     VISIBLE_COUNT,
-    centerIndexOffset,
-    totalDots,
+    centerIndexOffset: Math.floor(VISIBLE_COUNT / 2),
+    totalDots: totalPhotos,
   };
 }
 
@@ -377,6 +376,14 @@ function createDots() {
     dot.setAttribute("data-index", i);
     dot.addEventListener("click", () => updateCarousel(i));
     dotsContainer.appendChild(dot);
+  }
+
+  // 🔹 Atur apakah dots perlu scrollable atau center
+  const dotsWrapper = dotsContainer;
+  if (totalDots > 15) {
+    dotsWrapper.classList.add("many-dots");
+  } else {
+    dotsWrapper.classList.remove("many-dots");
   }
 }
 
@@ -429,10 +436,11 @@ function updateCarousel(newStartIndex) {
   // ukuran
   const wrapper = document.querySelector("#photo-slideshow");
   const wrapperWidth = wrapper.offsetWidth;
-  const slideWidth = slides[0].offsetWidth || 150;
-  const style = window.getComputedStyle(slides[0]);
-  const slideMargin =
-    (parseFloat(style.marginLeft) || 0) + (parseFloat(style.marginRight) || 0);
+  const slideStyle = window.getComputedStyle(slides[0]); // Ambil style dari slide pertama
+  const slideWidth = parseFloat(slideStyle.width) || 150;
+  const slideMarginLeft = parseFloat(slideStyle.marginLeft) || 0;
+  const slideMarginRight = parseFloat(slideStyle.marginRight) || 0;
+  const slideMargin = slideMarginLeft + slideMarginRight;
   const slideWidthWithMargin = slideWidth + slideMargin;
 
   // pusatkan selalu foto aktif
@@ -451,6 +459,32 @@ function updateCarousel(newStartIndex) {
   if (dots[startIndex]) dots[startIndex].classList.add("active");
 
   if (isManualShift) startAutoSlide();
+
+  // 🔹 Pastikan dot aktif selalu terlihat di area scroll (versi mobile-friendly)
+  const activeDot = dots[startIndex];
+  if (activeDot) {
+    const dotsWrapper = dotsContainer;
+
+    const dotLeft = activeDot.offsetLeft;
+    const dotRight = dotLeft + activeDot.offsetWidth;
+    const visibleLeft = dotsWrapper.scrollLeft;
+    const visibleRight = visibleLeft + dotsWrapper.offsetWidth;
+
+    // Jika dot aktif tidak terlihat di sisi kiri
+    if (dotLeft < visibleLeft + 10) {
+      dotsWrapper.scrollTo({
+        left: dotLeft - 20,
+        behavior: "smooth",
+      });
+    }
+    // Jika dot aktif tidak terlihat di sisi kanan
+    else if (dotRight > visibleRight - 10) {
+      dotsWrapper.scrollTo({
+        left: dotRight - dotsWrapper.offsetWidth + 30,
+        behavior: "smooth",
+      });
+    }
+  }
 }
 
 // resize: re-init tapi jangan spam
