@@ -50,25 +50,32 @@ header {
   width: 150px;
   height: 180px;
   margin: 0 15px;
-  transition: all 0.5s;
-  opacity: 0.5;
   position: relative;
+  opacity: 0.5;
+  transform: scale(1);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.6s ease;
+  will-change: transform, opacity;
 }
 
 .slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: filter 0.6s ease;
 }
 
-/* Efek tengah paling besar */
 .slide.active {
   opacity: 1;
   transform: scale(1.4);
   z-index: 10;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.45);
+}
+
+.slide.active img {
+  filter: brightness(1.05) contrast(1.1);
 }
 
 /* Titik navigasi carousel */
@@ -92,6 +99,9 @@ header {
 .dot.active {
   background-color: #007bff;
   transform: scale(1.5);
+}
+.carousel-container {
+  transition: transform 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95);
 }
 
 /* =========================================================
@@ -316,6 +326,44 @@ footer {
   header h1 {
     font-size: 1.2rem;
     padding: 10px;
+  }
+
+  /* Dashboard responsif agar tidak berantakan di mobile */
+  .dashboard-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .stat-card {
+    width: 100%;
+    margin: 0 auto;
+    padding: 12px 10px;
+  }
+
+  .stat-card h3 {
+    font-size: 0.95rem;
+  }
+
+  /* Perkecil chart dan elemen agar pas di layar kecil */
+  .stat-card canvas {
+    max-width: 240px !important;
+    height: auto !important;
+  }
+
+  .total-count {
+    font-size: 2rem;
+  }
+
+  .jabatan-grid {
+    grid-template-columns: 1fr; /* jadikan 1 kolom agar teks tidak terpotong */
+  }
+
+  .pendidikan-data {
+    flex-direction: column;
+    gap: 8px;
   }
 
   main {
