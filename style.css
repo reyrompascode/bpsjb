@@ -13,6 +13,11 @@ body {
   padding: 0;
   background-color: #f4f4f4;
 }
+header .logo-header {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+}
 
 /* =========================================================
    HEADER
@@ -78,28 +83,55 @@ header {
   filter: brightness(1.05) contrast(1.1);
 }
 
-/* Titik navigasi carousel */
+/* ============================
+   Posisi Dots SELALU di Tengah
+   ============================ */
+
+/* Bungkus utama untuk menjaga dot tetap sejajar dengan carousel */
+.carousel-dots-wrapper {
+  display: flex;
+  justify-content: center; /* Pastikan wrapper di tengah layar */
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Kontainer dot yang bisa digulir */
 .carousel-dots {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  align-items: center;
+  gap: 8px;
+  justify-content: center; /* ubah dari center agar bisa scroll bebas */
+  width: 100%;
+  max-width: 90vw; /* agar menyesuaikan layar mobile */
+  padding: 10px 40px; /* ruang ekstra kiri-kanan */
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-padding: 40px; /* ruang aman untuk scroll */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.carousel-dots::-webkit-scrollbar {
+  display: none;
 }
 
 .dot {
-  height: 6px;
-  width: 6px;
-  margin: 0 5px;
-  background-color: #bbb;
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
   border-radius: 50%;
-  display: inline-block;
+  background-color: #bbb;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
 }
 
 .dot.active {
   background-color: #007bff;
-  transform: scale(1.5);
+  transform: scale(1.6);
 }
+
+/* Mode banyak dot — biar bisa digulir */
+
 .carousel-container {
   transition: transform 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95);
 }
@@ -322,10 +354,22 @@ footer {
   body {
     overflow-x: hidden;
   }
+  header .logo-header {
+    height: 45px;
+  }
 
   header h1 {
     font-size: 1.2rem;
     padding: 10px;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    margin: 0 3px;
+  }
+
+  .dot.active {
+    transform: scale(1.6);
   }
 
   /* Dashboard responsif agar tidak berantakan di mobile */
@@ -370,13 +414,31 @@ footer {
     padding: 10px;
   }
 
-  #employee-table {
-    width: 900px; /* agar bisa digeser horizontal */
+  #employee-table th.freeze-col {
+    position: sticky;
+    left: 0;
+    background-color: #f2f2f2; /* sama seperti header lain */
+    z-index: 6; /* lebih tinggi dari td agar tidak tertutup */
+    box-shadow: 3px 0 5px rgba(0, 0, 0, 0.1);
   }
-
+  /* ✅ Freeze untuk sel isi kolom pertama */
+  #employee-table td.freeze-col {
+    position: sticky;
+    left: 0;
+    background-color: #fff;
+    z-index: 5;
+    box-shadow: 3px 0 5px rgba(0, 0, 0, 0.05);
+  }
   .freeze-col {
-    position: static; /* nonaktifkan sticky */
+    position: sticky; /* nonaktifkan sticky */
+    left: 0;
+    background-color: #fff;
+    z-index: 5;
     box-shadow: none;
+  }
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   /* Carousel kecil */
@@ -400,7 +462,10 @@ footer {
   }
 
   .carousel-dots {
-    margin-top: 10px;
+    justify-content: flex-start; /* biar bisa scroll horizontal */
+    max-width: 90vw; /* supaya area sesuai lebar layar */
+    padding: 10px 40px;
+    scroll-padding: 40px;
   }
 
   footer {
