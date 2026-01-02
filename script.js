@@ -20,6 +20,7 @@ const CUSTOM_ORDER_JABATAN = [
   "Pranata Keuangan APBN Terampil",
   "Statistisi Penyelia",
   "Statistisi Pelaksana Lanjutan",
+  "Prakom Pelaksana Lanjutan",
   "Statistisi Pelaksana",
   "Staf",
   "Pegawai Kontrak",
@@ -109,6 +110,7 @@ function renderDashboard(data) {
     "Pranata Keuangan APBN Terampil",
     "Statistisi Penyelia",
     "Statistisi Pelaksana Lanjutan",
+    "Prakom Pelaksana Lanjutan",
     "Statistisi Pelaksana",
     "Staf",
     "Pegawai Kontrak",
@@ -499,5 +501,6 @@ window.addEventListener("resize", () => {
 });
 
 document.addEventListener("DOMContentLoaded", loadPegawaiData);
+
 
 
