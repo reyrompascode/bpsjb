@@ -10,6 +10,7 @@ let sortDirection = {}; // Menyimpan arah pengurutan per kolom
 // MOHON SESUAIKAN DAFTAR INI DENGAN JABATAN AKTUAL DI FILE JSON ANDA, DARI YANG TERTINGGI KE TERENDAH.
 const CUSTOM_ORDER_JABATAN = [
   "Kepala BPS Kota Jakarta Barat",
+  "Statistisi Ahli Madya",
   "Kepala Sub Bagian Umum",
   "Statistisi Ahli Muda",
   "Prakom Ahli Muda",
@@ -497,3 +498,4 @@ window.addEventListener("resize", () => {
 });
 
 document.addEventListener("DOMContentLoaded", loadPegawaiData);
+
