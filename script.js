@@ -100,6 +100,7 @@ function renderDashboard(data) {
   // 🔹 JABATAN FUNGSIONAL
   const jabatanFungsional = [
     "Kepala Sub Bagian Umum",
+    "Statistisi Ahli Madya",
     "Statistisi Ahli Muda",
     "Prakom Ahli Muda",
     "Statistisi Ahli Pertama",
@@ -498,4 +499,5 @@ window.addEventListener("resize", () => {
 });
 
 document.addEventListener("DOMContentLoaded", loadPegawaiData);
+
 
