@@ -351,6 +351,17 @@
     "jabatan": "Statistisi Pelaksana Lanjutan",
     "fileFoto": "foto31.jpg"
   },
+   {
+    "nama": "Wibowo Pujiharto A.Md",
+    "nipLama": "340053794",
+    "nipBaru": "198512022010031001",
+    "email": "wibowo.pujiharto@bps.go.id",
+    "jeniskelamin": "Laki-laki",
+    "pendidikan": "D-3",
+    "pangkat": "Penata Muda / III a",
+    "jabatan": "Prakom Mahir",
+    "fileFoto": "foto31.jpg"
+  },
   {
     "nama": "Habib Ansori",
     "nipLama": "340064652",
@@ -407,6 +418,7 @@
     "fileFoto": "foto35.jpg"
   }
 ]
+
 
 
 
