@@ -72,14 +72,20 @@ async function loadPegawaiData() {
 function renderTable(data) {
   tableBody.innerHTML = ""; // Bersihkan konten tabel lama
 
-  data.forEach((pegawai) => {
+  data.forEach((pegawai, index) => {
     const row = tableBody.insertRow();
+
+    // 0️⃣ Kolom Nomor
+    const noCell = row.insertCell();
+    noCell.textContent = index + 1;
+    noCell.classList.add("col-no"); // opsional untuk styling
+    noCell.style.textAlign = "center";
 
     // 1. Nama Pegawai (Kolom Freeze)
     const namaCell = row.insertCell();
     namaCell.textContent = pegawai.nama;
     namaCell.classList.add("freeze-col"); // Class untuk freezing
-
+    
     // Kolom 2 - 8:
     row.insertCell().textContent = pegawai.nipLama;
     row.insertCell().textContent = pegawai.nipBaru;
@@ -501,6 +507,7 @@ window.addEventListener("resize", () => {
 });
 
 document.addEventListener("DOMContentLoaded", loadPegawaiData);
+
 
 
 
