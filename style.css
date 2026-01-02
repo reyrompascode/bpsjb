@@ -161,6 +161,15 @@ main h2 {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   background-color: white;
 }
+#employee-table thead th {
+  color: white;
+  background-color: #033366;
+  font-weight: 600;
+}
+#employee-table thead th.freeze-col {
+  background-color: #033366;
+  z-index: 30;
+}
 /* =========================================================
    FREEZE KOLOM PERTAMA (HEADER & ISI)
    ========================================================= */
@@ -557,4 +566,5 @@ footer {
 .chartjs-legend li {
   align-items: center !important;
 }
+
 
