@@ -385,6 +385,17 @@
     "fileFoto": "foto34.jpg"
   },
   {
+    "nama": "Imam Ma'Ruf",
+    "nipLama": "340064814",
+    "nipBaru": "196909072025211016",
+    "email": "imammaruf-pppk@bps.go.id",
+    "jeniskelamin": "Laki-laki",
+    "pendidikan": "SLTA",
+    "pangkat": "",
+    "jabatan": "Pegawai Kontrak",
+    "fileFoto": "foto37.jpg"
+  },
+  {
     "nama": "Elyas Jantana",
     "nipLama": "340064519",
     "nipBaru": "198801122025211060",
@@ -396,6 +407,7 @@
     "fileFoto": "foto35.jpg"
   }
 ]
+
 
 
 
