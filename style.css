@@ -199,7 +199,7 @@ main h2 {
 }
 #employee-table th:nth-child(8),
 #employee-table td:nth-child(8) {
-  text-align: right;
+  text-align: center;
 }
 #employee-table th:nth-child(9),
 #employee-table td:nth-child(9) {
@@ -566,5 +566,6 @@ footer {
 .chartjs-legend li {
   align-items: center !important;
 }
+
 
 
