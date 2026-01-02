@@ -11,6 +11,17 @@
     "fileFoto": "foto1.jpg"
   },
   {
+    "nama": "Heryanah S.IP., MA., M.S.E",
+    "nipLama": "320007100",
+    "nipBaru": "197711192002122005",
+    "email": "heryanah@bps.go.id",
+    "jeniskelamin": "Perempuan",
+    "pendidikan": "S-2",
+    "pangkat": "Penata Tk. I / III d",
+    "jabatan": "Statistisi Ahli Madya",
+    "fileFoto": "foto36.jpg"
+  },
+  {
     "nama": "Wahid Riyanto, SE, MM.",
     "nipLama": "340051370",
     "nipBaru": "198511112009021002",
@@ -385,5 +396,6 @@
     "fileFoto": "foto35.jpg"
   }
 ]
+
 
 
